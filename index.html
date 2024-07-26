@@ -13,6 +13,7 @@
   </head>
   <body>
     <canvas id="can" width="1000" height="500"></canvas>
+    <input type="number" id="radius" value="30" min="0" max="500">
     <button onclick="createBall()">create Balls</button>
     <script>
       const canvas = document.getElementById("can");
@@ -28,6 +29,7 @@
       
 
       const BALLS = [];
+      let lastSelectedBall;
 
       class Ball {
         radius = 30;
@@ -59,35 +61,25 @@
         }
       }
 
-      function gravityForce(b1, b2) {
-        let dx = b1.x - b2.x;
-        let dy = b1.y - b2.y;
-        let f = 1000 / Math.sqrt(dx * dx + dy * dy);
-        a = f * dt;
-        b1.x = a;
-        b2.y = a;
-        console.log(f + ":force");
-      }
-
       function checkHit(ball) {
 
-        if (ball.x + 30 > canvas.width) {
-          ball.x = canvas.width - 30;
+        if (ball.x + ball.radius > canvas.width) {
+          ball.x = canvas.width - ball.radius;
           ball.vx *= -1;
         }
 
-        if (ball.y + 30 > canvas.height) {
-          ball.y = canvas.height - 30;
+        if (ball.y + ball.radius > canvas.height) {
+          ball.y = canvas.height - ball.radius;
           ball.vy *= -1;
         }
 
-        if (ball.x - 30 < 0) {
-          ball.x = 30;
+        if (ball.x - ball.radius < 0) {
+          ball.x = ball.radius;
           ball.vx *= -1;
         }
 
-        if (ball.y - 30 < 0) {
-          ball.y = 30;
+        if (ball.y - ball.radius < 0) {
+          ball.y = ball.radius;
           ball.vy *= -1;
         }
 
@@ -101,6 +93,8 @@
       }
 
       function drawLine(x1,y1,x2,y2){
+        ctx.strokeStyle = 'red';  // Change the color of the line here
+        ctx.lineWidth = 0.2; 
         ctx.beginPath();
         ctx.moveTo(x1, y1);
         ctx.lineTo(x2, y2);
@@ -167,22 +161,32 @@
             ball.x = mouseX;
             ball.y = mouseY;
             ball.color = "black";
+            lastSelectedBall = ball;
         }else{
             ball.color = ball.default_color;
         }
       }
 
+      function changeParamsInLastBall(ball){
+        let r = parseInt(document.getElementById('radius').value);
+        console.log(r);
+        ball.radius = r;
+      }
+
       function update() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         console.log("hodling the mouse:" + mouseX);
-        
+        if(lastSelectedBall == null){
+          lastSelectedBall = BALLS[0];
+        }else{
+          changeParamsInLastBall(lastSelectedBall);
+        }
         for (const ball of BALLS) {
           ball.drawball();
           mouseOnBall(ball);
           ball.move();
           checkHit(ball);
           console.log(BALLS.length);
-
           for(const ball2 of BALLS){
             collision(ball,ball2);
             drawLine(ball.x,ball.y,ball2.x,ball2.y);
