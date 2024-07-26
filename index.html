@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      canvas{
+        background-color: bisque;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="can" width="1000" height="500"></canvas>
+    <button onclick="createBall()">create Balls</button>
+    <script>
+      const canvas = document.getElementById("can");
+      const ctx = canvas.getContext("2d");
+      let m = 1;
+      let ax = -1,
+        ay = -1;
+      let dt = 0.1;
+      let vx = 1,
+        vy = 1;
+      let x = 100,
+        y = 300;
+      
+
+      const BALLS = [];
+
+      class Ball {
+        radius = 30;
+        color = "#0095DE";
+        default_color = "#0095DE";
+        constructor(vx, vy, x, y, ax, ay) {
+          this.vx = vx;
+          this.vy = vy;
+          this.x = x;
+          this.y = y;
+          this.ax = ax;
+          this.ay = ay;
+          BALLS.push(this);
+        }
+
+        drawball() {
+          ctx.beginPath();
+          ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+          ctx.fillStyle = this.color;
+          ctx.fill();
+          ctx.closePath();
+        }
+
+        move() {
+          this.vx += ax * dt;
+          this.vy += ay * dt;
+          this.x += this.vx * dt;
+          this.y += this.vy * dt;
+        }
+      }
+
+      function gravityForce(b1, b2) {
+        let dx = b1.x - b2.x;
+        let dy = b1.y - b2.y;
+        let f = 1000 / Math.sqrt(dx * dx + dy * dy);
+        a = f * dt;
+        b1.x = a;
+        b2.y = a;
+        console.log(f + ":force");
+      }
+
+      function checkHit(ball) {
+
+        if (ball.x + 30 > canvas.width) {
+          ball.x = canvas.width - 30;
+          ball.vx *= -1;
+        }
+
+        if (ball.y + 30 > canvas.height) {
+          ball.y = canvas.height - 30;
+          ball.vy *= -1;
+        }
+
+        if (ball.x - 30 < 0) {
+          ball.x = 30;
+          ball.vx *= -1;
+        }
+
+        if (ball.y - 30 < 0) {
+          ball.y = 30;
+          ball.vy *= -1;
+        }
+
+      }
+
+      function distance(ball1,ball2){
+        let dis_x = ball1.x - ball2.x;
+        let dis_y = ball1.y - ball2.y;
+        let distance = Math.sqrt(dis_x*dis_x + dis_y*dis_y);
+        return distance;
+      }
+
+      function drawLine(x1,y1,x2,y2){
+        ctx.beginPath();
+        ctx.moveTo(x1, y1);
+        ctx.lineTo(x2, y2);
+        ctx.stroke();
+      }
+
+      function collision(ball1,ball2){
+        if(distance(ball1,ball2)<(ball1.radius+ball2.radius)){
+          ball1.vx *= -1;
+          ball1.vy *= -1;
+          ball2.vx *= -1;
+          ball2.vy *= -1;
+        }
+      }
+
+      function getRandomNumber() {
+        console.log(Math.random() * 2 - 1);
+        return Math.random() * 4 - 1;
+      }
+
+      function getRandomNumberXY() {
+        return Math.random() * (900 - 200) + 200;
+      }
+
+      function createBall(){
+        for (let i = 0; i < 1; i++) {
+          let ball1 = new Ball(
+            1,
+            1,
+            getRandomNumberXY(),
+            getRandomNumberXY(),
+            getRandomNumber(),
+            getRandomNumber()
+          );
+        }
+      };
+      let mouseX = 0,
+        mouseY = 0;
+      let isDrag = false;
+      canvas.addEventListener("mousedown", (event) => {
+        isDrag = true;
+      });
+
+      canvas.addEventListener("mouseup", (event) => {
+        isDrag = false;
+        mouseX = Infinity;
+        mouseY = Infinity;
+      });
+
+      canvas.addEventListener("mousemove", (event) => {
+        if (isDrag) {
+          const rect = canvas.getBoundingClientRect();
+          mouseX = event.clientX - rect.left;
+          mouseY = event.clientY - rect.top;
+        }
+      });
+
+      function mouseOnBall(ball){
+        let xb = ball.x - mouseX;
+        let yb = ball.y - mouseY;
+        let dist = Math.sqrt(xb*xb+yb*yb);
+
+        if(dist<ball.radius){
+            ball.x = mouseX;
+            ball.y = mouseY;
+            ball.color = "black";
+        }else{
+            ball.color = ball.default_color;
+        }
+      }
+
+      function update() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        console.log("hodling the mouse:" + mouseX);
+        
+        for (const ball of BALLS) {
+          ball.drawball();
+          mouseOnBall(ball);
+          ball.move();
+          checkHit(ball);
+          console.log(BALLS.length);
+
+          for(const ball2 of BALLS){
+            collision(ball,ball2);
+            drawLine(ball.x,ball.y,ball2.x,ball2.y);
+          }
+        }
+        requestAnimationFrame(update);
+      }
+
+      update();
+    </script>
+  </body>
+</html>
