@@ -1,7 +1,7 @@
 # Physics Simulation Engine
 
 ## Overview
-Developed this physics simulation engine to deepen my understanding of JavaScript and explore my interest in physics. This project allowed me to combine my curiosity for physical interactions with practical coding experience, resulting in a tool that simulates realistic physical behaviors.
+Developing this physics simulation engine to deepen my understanding of JavaScript and explore my interest in physics. This project allowed me to combine my curiosity for physical interactions with practical coding experience, resulting in a tool that simulates realistic physical behaviors.
 
 This physics simulation engine is designed to simulate realistic physical interactions in a 2D environment, similar to Matter.js. It provides developers with the tools to create simulations involving collisions, forces, constraints, and more.
 
