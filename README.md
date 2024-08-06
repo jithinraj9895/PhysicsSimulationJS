@@ -132,3 +132,56 @@ The `Body` class represents a physical object within the physics simulation, wit
 
   ```javascript
   const body = new Body(10, 5, 0, -9.8);
+
+## Ball Class
+
+The `Ball` class extends the `Body` class, representing a circular physical object within the physics simulation. It includes additional properties and methods specific to circular bodies, such as radius, area, and circumference.
+
+### Inheritance
+
+- **Inherits from:** `Body`
+
+### Properties
+
+- **`radius`** (`number`):  
+  - The radius of the ball, which determines its size in the simulation.
+  - **Default value:** `10`
+
+### Constructor
+
+#### `constructor(radius = 10, vx = 0, vy = 0, ax = 1, ay = 1)`
+
+- **Parameters:**
+  - `radius` (`number`, optional): The radius of the ball. Defaults to `10`.
+  - `vx` (`number`, optional): Initial velocity along the x-axis. Defaults to `0`.
+  - `vy` (`number`, optional): Initial velocity along the y-axis. Defaults to `0`.
+  - `ax` (`number`, optional): Initial acceleration along the x-axis. Defaults to `1`.
+  - `ay` (`number`, optional): Initial acceleration along the y-axis. Defaults to `1`.
+
+- **Description:**  
+  Initializes a new instance of the `Ball` class, extending the `Body` class with properties specific to circular objects.
+
+- **Example:**
+
+  ```javascript
+  const ball = new Ball(15, 2, 3, 0.5, 0.5);
+
+-**Methods**
+  The Ball class provides several methods to calculate properties and control the behavior of the ball in the simulation:
+  
+  getArea()
+  
+  Returns: The calculated area of the ball.
+  getCircumference()
+  
+  Returns: The calculated circumference of the ball.
+  draw(ctx)
+  
+  Parameters:
+  ctx (CanvasRenderingContext2D): The drawing context of the canvas.
+  Description: Renders the ball on the canvas.
+  setBoundaries(canvas)
+  
+  Parameters:
+  canvas (HTMLCanvasElement): The canvas element used for boundary collision checks.
+  Description: Ensures the ball remains within the canvas boundaries.
