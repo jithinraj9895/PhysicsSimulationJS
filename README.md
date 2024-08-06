@@ -1,4 +1,4 @@
-# Physics Simulation Engine
+# A Simple Physics Simulation Engine
 
 ## Overview
 Developing this physics simulation engine to deepen my understanding of JavaScript and explore my interest in physics. This project allowed me to combine my curiosity for physical interactions with practical coding experience, resulting in a tool that simulates realistic physical behaviors.
