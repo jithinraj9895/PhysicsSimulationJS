@@ -165,23 +165,3 @@ The `Ball` class extends the `Body` class, representing a circular physical obje
 
   ```javascript
   const ball = new Ball(15, 2, 3, 0.5, 0.5);
-
--**Methods**
-  The Ball class provides several methods to calculate properties and control the behavior of the ball in the simulation:
-  
-  getArea()
-  
-  Returns: The calculated area of the ball.
-  getCircumference()
-  
-  Returns: The calculated circumference of the ball.
-  draw(ctx)
-  
-  Parameters:
-  ctx (CanvasRenderingContext2D): The drawing context of the canvas.
-  Description: Renders the ball on the canvas.
-  setBoundaries(canvas)
-  
-  Parameters:
-  canvas (HTMLCanvasElement): The canvas element used for boundary collision checks.
-  Description: Ensures the ball remains within the canvas boundaries.
