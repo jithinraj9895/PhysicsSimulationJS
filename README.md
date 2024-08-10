@@ -1,9 +1,9 @@
 # A Simple Physics Simulation Engine
 
 ## Overview
-Developing this physics simulation engine to deepen my understanding of JavaScript and explore my interest in physics. This project allowed me to combine my curiosity for physical interactions with practical coding experience, resulting in a tool that simulates realistic physical behaviors.
+Developing this physics simulation engine to deepen my understanding of JavaScript and explore my interest in physics. This project allowed me to combine my curiosity for physical interactions with practical coding experience, resulting in creating this different classes and stuff that we can reuse anytime we need.
 
-This physics simulation engine is designed to simulate realistic physical interactions in a 2D environment, similar to Matter.js. It provides developers with the tools to create simulations involving collisions, forces, constraints, and more.
+This repository features a collection of simple yet intriguing physics-based code bases. Each example demonstrates fundamental concepts in physics through straightforward, easy-to-understand code. These examples are designed to be both educational and engaging, showcasing the core principles of physics in a clear and accessible manner. Explore these examples to gain insights into physics simulations and integrate these concepts into your own projects.
 
 ### Key Features
 
