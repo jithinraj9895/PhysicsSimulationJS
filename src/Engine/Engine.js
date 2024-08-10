@@ -1,9 +1,13 @@
-
+import Ball from "../Bodies/Ball.js";
+import Box from "../Bodies/Box.js";
+import mousePointer from "../Utility/Mouse.js";
 class Engine{
     bodies = [];
     ctx;
     world;
     animationFrameId;
+    isLine = false;
+
     constructor(world){
         this.ctx = world.ctx;
         this.world = world;
@@ -13,7 +17,7 @@ class Engine{
 
     update(){
         this.ctx.clearRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
-
+        console.log(mousePointer.x);
         //to stop the engine before it cant handle the bodies, need to optimize the loop.
         if(this.bodies.length > 1000){
             this.stopEngine();
@@ -22,13 +26,13 @@ class Engine{
         for(let i = 0;i<this.bodies.length;i++){
             this.bodies[i].draw(this.ctx);
             this.bodies[i].move();
-
+            mousePointer.selectedBody(this.bodies[i],this.ctx);
             //check boundaries are activated in the world
-            if(this.world.isBounderiesActive){
+            if(this.world.isBounderiesActive && this.bodies[i] instanceof Ball){
                 this.bodies[i].setBoundaries(this.ctx.canvas);
             }
 
-            if(this.world.isCollisionActive){
+            if(this.world.isCollisionActive && this.bodies[i] instanceof Ball){
                 for(let j = 0;j<this.bodies.length;j++){
                     this.collisionAll(this.bodies[i],this.bodies[j]);
                 }
@@ -50,7 +54,8 @@ class Engine{
     distance(ball1,ball2){
         let dis_x = ball1.x - ball2.x;
         let dis_y = ball1.y - ball2.y;
-        this.drawLine(ball1.x,ball1.y,ball2.x,ball2.y);
+        if(this.isLine)
+            this.drawLine(ball1.x,ball1.y,ball2.x,ball2.y);
         let distance = Math.sqrt(dis_x*dis_x + dis_y*dis_y);
         return distance;
     }
@@ -74,5 +79,7 @@ class Engine{
       }
 
 }
+
+
 
 export default Engine;

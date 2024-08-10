@@ -1,7 +1,8 @@
 import Body from "./Body.js"
 
 class Ball extends Body {
-
+    color = "#1E90FF";
+    default_color = "#1E90FF";
     constructor(radius = 10, vx = 0, vy = 0, ax = 1, ay = 1) {
         super(vx, vy, ax, ay);
         
@@ -20,7 +21,7 @@ class Ball extends Body {
         console.log("in_draw");
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-        ctx.fillStyle = "#1E90FF";
+        ctx.fillStyle = this.color;
         ctx.fill();
         ctx.closePath();
     }
