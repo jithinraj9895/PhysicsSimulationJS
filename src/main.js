@@ -4,6 +4,7 @@ import Engine from './Engine/Engine.js';
 import world from './Utility/World.js';
 import getRandomInt from './Utility/utility.js';
 import Box from './Bodies/Box.js';
+import mousePointer from './Utility/Mouse.js';
 
 const canvas = document.getElementById("can");
 const w1 = new world(canvas);
@@ -35,12 +36,35 @@ function createBoxs(){
     counter++;
 }
 
+
+function changeCanvas(){
+    var ch = document.getElementById('canvasheight').value;
+    var cw = document.getElementById('canvaswidth').value;
+    w1.canvas.height = ch;
+    w1.canvas.width = cw;
+}
+
+function changeSelectedBall(){
+    var r = document.getElementById('lastBallRadius').value;
+    mousePointer.pointedBody.radius = r;
+}
+
 const button = document.getElementById('createball');
 const boxButton = document.getElementById('createbox');
 const check = document.getElementById('addLinesChkBox');
+
+const changeCanvasBtn = document.getElementById('changeCanvas');
+const changeRadiusBtn = document.getElementById('radiusChange');
+
+
+
 
 
 
 // Attach the event listener
 button.addEventListener('click', createBall);
 boxButton.addEventListener('click', createBoxs);
+changeCanvasBtn.addEventListener('click', changeCanvas);
+changeRadiusBtn.addEventListener('click', changeSelectedBall);
+
+

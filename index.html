@@ -11,10 +11,20 @@
   <canvas id="can" width="1250" height="300"></canvas>
   <br>
   <div class="controller-container">
-    <button id="createball">create Balls</button>    
+    <input type="number" id="canvaswidth" name="width" style="width: 50px;" placeholder="1250">
+    <input type="number" id="canvasheight" name="height" style="width: 50px;" placeholder="300">
+    <button id="changeCanvas">change canvas</button>
+    <button id="createball">create Balls</button>
     <button id="createbox" disabled>create Box</button>
     <input type="checkbox" id="addLinesChkBox">
     Add Lines
+    <!-- <div>
+      <button id="radiusChange">change Radius</button>
+      <input type="number" id="lastBallRadius" name="radius" style="width: 30px;" placeholder="20">
+    </div> -->
+  </div>
+  <div>
+    
   </div>
   <script type="module" src="src/main.js"></script>
 </body>
