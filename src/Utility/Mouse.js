@@ -25,18 +25,18 @@ canvas.addEventListener("mousemove", (event) => {
 
 let select = new Box(0,0,0,0);
 mousePointer.selectedBody = (ball,ctx)=>{
-    let xb = ball.x - mousePointer.x;
-    let yb = ball.y - mousePointer.y;
+    let xb = ball.position.x - mousePointer.x;
+    let yb = ball.position.y - mousePointer.y;
     let dist = Math.sqrt(xb*xb+yb*yb);
     if(dist<ball.radius){
-        ball.x = mousePointer.x;
-        ball.y = mousePointer.y;
+        ball.position.x = mousePointer.x;
+        ball.position.y = mousePointer.y;
         ball.color = "#003366";
         mousePointer.pointedBody = ball;
         select.width = ball.radius * 2;
         select.height = ball.radius * 2;
-        select.x = ball.x - ball.radius;
-        select.y = ball.y - ball.radius;
+        select.x = ball.position.x - ball.radius;
+        select.y = ball.position.y - ball.radius;
         select.draw(ctx);
     }else{
         ball.color = ball.default_color;

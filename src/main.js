@@ -5,6 +5,7 @@ import world from './Utility/World.js';
 import getRandomInt from './Utility/utility.js';
 import Box from './Bodies/Box.js';
 import mousePointer from './Utility/Mouse.js';
+import Vector from './Utility/vector.js';
 
 const canvas = document.getElementById("can");
 const w1 = new world(canvas);
@@ -22,8 +23,9 @@ function createBall(){
         engine.isLine = false;
     }
     console.log("the_value "+ getRandomInt(200,400));
-    const ball = new Ball(20, getRandomInt(-20,20), getRandomInt(-20,20), 0, 0.8); 
-    ball.x = getRandomInt(200,400),ball.y = getRandomInt(200,400);
+    const ball = new Ball(20, getRandomInt(200,500),getRandomInt(200,500)); 
+    if(cor.value > 0)
+        ball.restitution = cor.value;
     engine.bodies[counter] = ball;
     counter++;
 }
@@ -52,13 +54,10 @@ function changeSelectedBall(){
 const button = document.getElementById('createball');
 const boxButton = document.getElementById('createbox');
 const check = document.getElementById('addLinesChkBox');
+const cor = document.getElementById('cor');
 
 const changeCanvasBtn = document.getElementById('changeCanvas');
 const changeRadiusBtn = document.getElementById('radiusChange');
-
-
-
-
 
 
 // Attach the event listener

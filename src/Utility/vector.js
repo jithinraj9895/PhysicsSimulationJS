@@ -1,34 +1,36 @@
-export default class vector{
-    constructor(x,y){
+export default class Vector{
+    constructor(x, y) {
         this.x = x;
         this.y = y;
     }
 
-    add(velocity){
-        return new Vector(this.x+velocity.x, this.y+velocity.y);
+    add(v) {
+        return new Vector(this.x + v.x, this.y + v.y);
     }
 
-    subtr(velocity){
-        return new Vector(this.x-velocity.x, this.y-velocity.y);
+    subtract(v) {
+        return new Vector(this.x - v.x, this.y - v.y);
     }
 
-    //to find magnitude
-    mag(){
-        return Math.sqrt(this.x**2 + this.y**2)
+    multiply(scalar) {
+        return new Vector(this.x * scalar, this.y * scalar);
     }
 
-    //to increase magnitude of the vector
-    mult(n){
-        return new Vector(this.x*n, this.y*n);
+    divide(scalar) {
+        return new Vector(this.x / scalar, this.y / scalar);
     }
 
-    drawVec(start_x, start_y, n, color){
-        ctx.beginPath();
-        ctx.moveTo(start_x, start_y);
-        ctx.lineTo(start_x + this.x * n, start_y + this.y * n);
-        ctx.strokeStyle = color;
-        ctx.stroke();
-        ctx.closePath();
+    magnitude() {
+        return Math.sqrt(this.x * this.x + this.y * this.y);
+    }
+
+    normalize() {
+        const mag = this.magnitude();
+        return new Vector(this.x / mag, this.y / mag);
+    }
+
+    dot(v) {
+        return this.x * v.x + this.y * v.y;
     }
 
 

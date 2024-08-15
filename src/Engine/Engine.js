@@ -34,7 +34,12 @@ class Engine{
 
             if(this.world.isCollisionActive && this.bodies[i] instanceof Ball){
                 for(let j = 0;j<this.bodies.length;j++){
-                    this.collisionAll(this.bodies[i],this.bodies[j]);
+                    if(this.bodies[i]!=this.bodies[j]){
+                        this.bodies[i].checkCollision(this.bodies[j]);
+                        if(this.isLine){
+                            this.drawLine(this.bodies[i].position.x,this.bodies[i].position.y,this.bodies[j].position.x,this.bodies[j].position.y)
+                        }
+                    }
                 }
             }
         }
@@ -51,24 +56,6 @@ class Engine{
         }
     }
 
-    distance(ball1,ball2){
-        let dis_x = ball1.x - ball2.x;
-        let dis_y = ball1.y - ball2.y;
-        if(this.isLine)
-            this.drawLine(ball1.x,ball1.y,ball2.x,ball2.y);
-        let distance = Math.sqrt(dis_x*dis_x + dis_y*dis_y);
-        return distance;
-    }
-
-    collisionAll(ball1,ball2){
-        if(this.distance(ball1,ball2)<=(ball1.radius+ball2.radius)){
-            ball1.vx *= -1;
-            ball1.vy *= -1;
-            ball2.vx *= -1;
-            ball2.vy *= -1;
-        }
-    }
-
     drawLine(x1,y1,x2,y2){
         this.ctx.strokeStyle = 'red';  // Change the color of the line here
         this.ctx.lineWidth = 0.2; 
@@ -76,7 +63,7 @@ class Engine{
         this.ctx.moveTo(x1, y1);
         this.ctx.lineTo(x2, y2);
         this.ctx.stroke();
-      }
+    }
 
 }
 
